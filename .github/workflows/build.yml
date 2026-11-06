@@ -26,6 +26,8 @@ jobs:
 
       - name: Build
         run: npm run dist
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Windows artifact
         if: matrix.os == 'windows-latest'
