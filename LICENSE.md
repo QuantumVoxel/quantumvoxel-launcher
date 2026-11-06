@@ -2,10 +2,6 @@ Copyright (c) 2026 Omnixerio Studios.
 
 ## All Rights Reserved.
 
-No person may create, save, distribute, publish, sublicense, sell, or 
-otherwise make available any modified version, derivative work, patched 
-copy, reverse-engineered version, or adapted form of the Software.
-
 ```
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
