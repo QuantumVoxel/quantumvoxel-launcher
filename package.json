@@ -1,6 +1,6 @@
 {
   "name": "quantumvoxel-launcher",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A minimal custom-title-bar Electron web browser starter.",
   "main": "./out/main/index.js",
   "author": "",
