@@ -10,6 +10,10 @@
   z-index: 2000;
 }
 
+.titlebar.macos {
+  max-height: 32px;
+}
+
 .brand {
   display: flex;
   align-items: center;
@@ -24,6 +28,15 @@
   font-weight: 500;
   background: #0004;
   backdrop-filter: blur(16px);
+  -webkit-app-region: drag;
+}
+
+.brand.macos {
+  padding-left: 88px;
+}
+
+.brand.macos.maximized {
+  padding-right: 8px;
 }
 
 .brand-icon {
@@ -34,6 +47,7 @@
   background: var(--bg-elevated);
   color: var(--accent);
   font: 700 10px "Cascadia Code", monospace;
+  -webkit-app-region: drag;
 }
 
 .window-controls-back {

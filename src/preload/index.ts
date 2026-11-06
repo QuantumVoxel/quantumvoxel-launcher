@@ -1,6 +1,9 @@
-import { contextBridge, ipcRenderer } from "electron";
+import {contextBridge, ipcRenderer} from "electron";
 
 contextBridge.exposeInMainWorld("electronAPI", {
+  get platform() {
+    return process.platform;
+  },
   getClientVersions: () => ipcRenderer.invoke("launcher:versions"),
   getLaunchState: () => ipcRenderer.invoke("launcher:state"),
   launchClient: (options: import("../shared/launcher").LaunchOptions) => ipcRenderer.invoke("launcher:launch", options),

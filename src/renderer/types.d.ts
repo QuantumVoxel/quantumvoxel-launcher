@@ -1,4 +1,5 @@
 export interface ElectronAPI {
+  readonly platform: string;
   getClientVersions(): Promise<import("../shared/launcher").VersionResult>;
   getLaunchState(): Promise<import("../shared/launcher").LaunchState>;
   launchClient(options: import("../shared/launcher").LaunchOptions): Promise<import("../shared/launcher").LaunchState>;

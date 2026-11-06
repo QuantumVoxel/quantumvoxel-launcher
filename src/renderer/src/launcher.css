@@ -1,4 +1,5 @@
 .launcher-brand {
+  -webkit-app-region: drag;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -9,6 +10,7 @@
 
 .launcher-brand svg {
   color: #91e7b5;
+  -webkit-app-region: drag;
 }
 
 .launcher {

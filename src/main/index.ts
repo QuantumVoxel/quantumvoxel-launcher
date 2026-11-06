@@ -12,6 +12,7 @@ function createWindow(): void {
     minWidth: 700,
     minHeight: 550,
     frame: false,
+    titleBarStyle: process.platform === "darwin" ? "hidden" : undefined,
     backgroundColor: "#101418",
     icon: join(app.getAppPath(), "icons/icon.png"),
     webPreferences: {

@@ -7,6 +7,8 @@ interface TitleBarProps {
   tabs?: ReactNode;
 }
 
+const isMacOS = window.electronAPI.platform === "darwin";
+
 export function TitleBar({ actions }: TitleBarProps) {
   const [maximized, setMaximized] = useState(false);
 
@@ -20,37 +22,39 @@ export function TitleBar({ actions }: TitleBarProps) {
   }
 
   return (
-    <header className="titlebar">
-      <div className="brand">
+    <header className={isMacOS ? "titlebar macos" : "titlebar"}>
+      <div className={isMacOS ? "brand macos" : "brand"}>
         {actions && <div className="titlebar-actions">{actions}</div>}
       </div>
-      <div className="window-controls-back">
-        <div className="window-controls">
-          <button
-            className="window-button"
-            onClick={() => window.electronAPI.minimize()}
-            aria-label="Minimize"
-          >
-            <FaWindowMinimize/>
-          </button>
+      {!isMacOS && (
+        <div className="window-controls-back">
+          <div className="window-controls">
+            <button
+              className="window-button"
+              onClick={() => window.electronAPI.minimize()}
+              aria-label="Minimize"
+            >
+              <FaWindowMinimize/>
+            </button>
 
-          <button
-            className="window-button"
-            onClick={toggleMaximize}
-            aria-label={maximized ? "Restore" : "Maximize"}
-          >
-            <FaWindowMaximize/>
-          </button>
+            <button
+              className="window-button"
+              onClick={toggleMaximize}
+              aria-label={maximized ? "Restore" : "Maximize"}
+            >
+              <FaWindowMaximize/>
+            </button>
 
-          <button
-            className="window-button close"
-            onClick={() => window.electronAPI.close()}
-            aria-label="Close"
-          >
-            <FaTimes/>
-          </button>
+            <button
+              className="window-button close"
+              onClick={() => window.electronAPI.close()}
+              aria-label="Close"
+            >
+              <FaTimes/>
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </header>
   );
 }
