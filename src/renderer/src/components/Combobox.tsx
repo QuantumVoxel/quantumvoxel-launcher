@@ -43,18 +43,9 @@ export function Combobox({
 }: ComboboxProps) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(-1);
-  const [query, setQuery] = useState(value);
   const rootRef = useRef<HTMLDivElement>(null);
 
   const opts = useMemo(() => options.map(toOption), [options]);
-
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return opts;
-    return opts.filter((o) => o.value.toLowerCase().includes(q) || (o.label ?? "").toLowerCase().includes(q));
-  }, [opts, query]);
-
-  useEffect(() => setQuery(value), [value]);
 
   useEffect(() => {
     if (!open) return;
@@ -67,7 +58,6 @@ export function Combobox({
 
   const select = (v: string) => {
     onChange(v);
-    setQuery(v);
     setOpen(false);
     setActive(-1);
   };
@@ -76,19 +66,17 @@ export function Combobox({
     if (e.key === "ArrowDown") {
       e.preventDefault();
       setOpen(true);
-      setActive((a) => (a + 1) % Math.max(1, filtered.length));
+      setActive((a) => (a + 1) % Math.max(1, opts.length));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setOpen(true);
-      setActive((a) => (a <= 0 ? Math.max(1, filtered.length) : a) - 1);
+      setActive((a) => (a <= 0 ? Math.max(1, opts.length) : a) - 1);
     } else if (e.key === "Enter") {
       e.preventDefault();
-      if (open && filtered[active]) {
-        select(filtered[active].value);
-      } else if (allowCustom) {
-        select(query);
-      } else if (filtered[0]) {
-        select(filtered[0].value);
+      if (open && opts[active]) {
+        select(opts[active].value);
+      } else if (opts[0]) {
+        select(opts[0].value);
       } else {
         setOpen(false);
       }
@@ -97,21 +85,14 @@ export function Combobox({
     }
   };
 
-  const onChangeInput = (v: string) => {
-    setQuery(v);
-    setActive(-1);
-    setOpen(true);
-    if (allowCustom) onChange(v);
-  };
-
   return (
     <div className={`combobox${className ? ` ${className}` : ""}`} ref={rootRef}>
       <div className="combobox-input-wrap">
         {icon && <span className="text-input-icon">{icon}</span>}
         <input
           className="combobox-input"
-          value={query}
-          onChange={(e) => onChangeInput(e.target.value)}
+          value={value}
+          readOnly
           onKeyDown={onKeyDown}
           onFocus={() => setOpen(true)}
           onClick={(e: ReactPointerEvent<HTMLInputElement>) => {
@@ -125,9 +106,9 @@ export function Combobox({
           <FaChevronDown/>
         </span>
       </div>
-      {open && filtered.length > 0 && (
+      {open && opts.length > 0 && (
         <div className="combobox-list">
-          {filtered.map((o, i) => (
+          {opts.map((o, i) => (
             <button
               key={o.value}
               type="button"

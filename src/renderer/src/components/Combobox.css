@@ -27,6 +27,7 @@
   color: var(--text-primary);
   font-size: 14px;
   outline: none;
+  cursor: default;
 }
 
 .combobox-input::placeholder {
