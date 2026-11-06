@@ -1,0 +1,350 @@
+.launcher-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: #c7d8d1;
+  letter-spacing: .03em;
+}
+
+.launcher-brand svg {
+  color: #91e7b5;
+}
+
+.launcher {
+  flex: 1;
+  overflow: auto;
+  padding: 48px clamp(24px, 5vw, 72px) 20px;
+  color: #e7eeea;
+  display: grid;
+  grid-template-columns:1fr minmax(310px, 410px);
+  gap: 28px 42px;
+  align-content: start;
+}
+
+.launcher-hero {
+  position: relative;
+  padding: 26px 0;
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .19em;
+  color: #fff6;
+}
+
+.launcher h1 {
+  font-size: clamp(34px, 4.3vw, 58px);
+  letter-spacing: -.05em;
+  line-height: 1.08;
+  margin: 22px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.launcher-hero p {
+  color: #a0b6ac;
+  max-width: 280px;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.launch-card {
+  background: #0003;
+  backdrop-filter: blur(16px);
+  border: 1px solid #fff2;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 20px 70px #0003;
+}
+
+.card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.launcher h2 {
+  font-size: 23px;
+  letter-spacing: -.03em;
+  margin: 8px 0 24px;
+}
+
+.launcher button, .launcher input, .launcher select {
+  font: inherit;
+}
+
+.launcher button {
+  cursor: pointer;
+}
+
+.launcher button:disabled {
+  opacity: .45;
+  cursor: default;
+}
+
+.launcher button:focus-visible, .launcher input:focus-visible, .launcher select:focus-visible, .launcher summary:focus-visible {
+  outline: 3px solid #fff8;
+}
+
+.refresh {
+  align-self: flex-start;
+  background: #0004;
+  color: #fff8;
+  border: 1px solid #fff4;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.channel-tabs {
+  display: flex;
+  background: #0004;
+  border-radius: 8px;
+  padding: 4px;
+  margin-bottom: 22px;
+}
+
+.channel-tabs button {
+  flex: 1;
+  border: 0;
+  border-radius: 6px;
+  padding: 9px;
+  color: #fff4;
+  background: transparent;
+  font-size: 12px;
+}
+
+.channel-tabs button[aria-pressed=true] {
+  background: #fff;
+  color: #000;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 12px;
+  color: #fff4;
+  margin-top: 14px;
+}
+
+.field input, .field select {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #fff4;
+  border-radius: 8px;
+  background: #0000;
+  color: #fff8;
+  padding: 12px;
+  user-select: text;
+}
+
+.version-selector {
+  width: 100%;
+}
+
+.version-selector .combobox-input-wrap {
+  background: #0004;
+  border-color: #fff4;
+  border-radius: 8px;
+  padding: 12px;
+  color: #fff8;
+}
+
+.version-selector .combobox-input {
+  border: none;
+  color: #fff8;
+  font-size: 14px;
+  padding: 0;
+}
+
+.version-selector .combobox-input:active {
+  outline: none;
+}
+
+.version-selector .combobox-input:focus {
+  outline: none;
+}
+
+.version-selector .combobox-input::placeholder {
+  color: #fff4;
+}
+
+.version-selector .combobox-chevron {
+  color: #fff4;
+}
+
+.version-selector .combobox-chevron.open {
+  color: #ffff;
+}
+
+.version-selector .combobox-list {
+  background: #000;
+  border-color: #fff4;
+  border-radius: 8px;
+  box-shadow: 0 12px 40px #000a;
+  max-height: 200px;
+  z-index: 1000;
+}
+
+.version-selector .combobox-item {
+  color: #fff8;
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-size: 13px;
+}
+
+.version-selector .combobox-item:hover,
+.version-selector .combobox-item.active {
+  background: #fff2;
+}
+
+.version-selector .combobox-item.selected .combobox-item-label {
+  color: #ffff;
+}
+
+.version-selector .combobox-item-check {
+  color: #91e7b5;
+}
+
+.repository {
+  color: #fff4;
+  font-size: 11px;
+  user-select: text;
+}
+
+.launcher details {
+  margin-top: 23px;
+  color: #fff8;
+  font-size: 12px;
+}
+
+.launcher summary {
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.runtime-help, .snapshot-note {
+  font-size: 12px;
+  color: #fff8;
+  line-height: 1.6;
+}
+
+.play-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+  margin-top: 24px;
+  border: 1px solid #fff2;
+  border-radius: 9px;
+  background: #0004;
+  color: #fff8;
+  font-weight: 750 !important;
+}
+
+.play-button:disabled {
+  opacity: 1.0;
+  background: #0000;
+  border: 1px solid #fff1;
+  color: #fffa;
+  cursor: not-allowed;
+}
+
+.play-button:hover:enabled {
+  background: #ffff;
+  color: #000f;
+}
+
+.launch-status {
+  text-align: center;
+  font-size: 12px;
+  color: #fff8;
+  line-height: 1.5;
+}
+
+.launch-status.error, .launch-error {
+  color: #fc6555a0;
+}
+
+.launch-error, .repository-warnings {
+  font-size: 11px;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+}
+
+.repository-warnings {
+  color: #e8a93ea0;
+  border-top: 1px solid #fff2;
+  margin-top: 18px;
+}
+
+.launch-log {
+  flex: 0 0 auto;
+  margin: 0 !important;
+  background: #0008;
+  backdrop-filter: blur(16px);
+  border-top: 1px solid #fff2;
+  padding: 0 18px 12px;
+}
+
+.launch-log pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 240px;
+  overflow: auto;
+  user-select: text;
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.launcher footer {
+  grid-column: 1/-1;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #fff8;
+  padding: 4px 0;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 800px) {
+  .launcher {
+    padding: 24px;
+    gap: 24px;
+    grid-template-columns:1fr;
+  }
+
+  .launcher-hero {
+    min-height: 0;
+    padding: 0;
+  }
+
+  .launcher h1 {
+    font-size: 36px;
+    margin: 15px 0;
+  }
+
+  .voxel-art {
+    display: none;
+  }
+
+  .launcher-hero p {
+    max-width: none;
+  }
+}
