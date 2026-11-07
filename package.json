@@ -54,7 +54,11 @@
         "AppImage", "deb", "rpm"
       ],
       "category": "Network",
-      "icon": "icons/icon.png"
+      "icon": "icons/icon.png",
+      "maintainer": "QboiDev <xypercode@ultreon.dev>",
+      "description": "A launcher for Quantum Voxel",
+      "synopsis": "A launcher for Quantum Voxel",
+      "vendor": "Omnixerio Studios"
     },
     "win": {
       "target": "nsis",
