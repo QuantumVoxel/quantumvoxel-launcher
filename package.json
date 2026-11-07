@@ -4,6 +4,7 @@
   "description": "A minimal custom-title-bar Electron web browser starter.",
   "main": "./out/main/index.js",
   "author": "Omnixerio Studios",
+  "desktopName": "net.quantumvoxel.Launcher",
   "scripts": {
     "dev": "electron-vite dev",
     "build": "electron-vite build",
