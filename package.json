@@ -64,8 +64,7 @@
       "target": [
         "nsis", "msi", "appx"
       ],
-      "icon": "icons/icon.ico",
-      "author": "Omnixerio Studios"
+      "icon": "icons/icon.ico"
     },
     "mac": {
       "target": "dmg",
