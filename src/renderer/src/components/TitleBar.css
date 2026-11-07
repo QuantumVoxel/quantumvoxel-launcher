@@ -52,8 +52,10 @@
 
 .window-controls-back {
   display: flex;
-  height: 100%;
-  background: var(--bg-black);
+  height: 40px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .titlebar-actions {
@@ -70,7 +72,6 @@
   width: 38px;
   height: 30px;
   border: 0;
-  border-radius: var(--radius-8px);
   background: transparent;
   color: var(--text-secondary);
   display: grid;
@@ -81,15 +82,14 @@
 }
 
 .titlebar-action:hover {
-  background: var(--bg-active);
-  color: var(--accent);
+  background: #fff2;
+  color: #fff8;
 }
 
 .window-controls {
   display: flex;
   height: 100%;
   -webkit-app-region: no-drag;
-  background: var(--border);
 }
 
 .window-button {
@@ -105,11 +105,11 @@
 }
 
 .window-button {
-  border-radius: var(--radius-16px);
+
 }
 
 .window-button:hover {
-  background: var(--bg-active);
+  background: #fff2;
 }
 
 .window-button.close:hover {

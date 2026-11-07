@@ -1,10 +1,20 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState, useMemo} from "react";
 import {FaCube, FaPlay, FaSyncAlt} from "react-icons/fa";
 import {TitleBar} from "./components/TitleBar";
 import {Combobox} from "./components/Combobox";
 import type {ClientVersion, LaunchState} from "../../shared/launcher";
+import {parseANSI, stylesToCSS} from "./ansi";
 import "./App.css";
 import "./launcher.css";
+
+function renderANSILog(log: string) {
+  const segments = parseANSI(log);
+  if (segments.length === 0) return null;
+  return segments.map((segment, i) => {
+    const style = stylesToCSS(segment.styles);
+    return <span key={i} style={style}>{segment.text}</span>;
+  });
+}
 
 export function App() {
   const [versions, setVersions] = useState<ClientVersion[]>([]);
@@ -131,7 +141,9 @@ export function App() {
     </main>
     <details className="launch-log" open={state.phase === "error"}>
       <summary>Launch log</summary>
-      <pre aria-label="Launch output">{state.log || "Client and dependency output will appear here."}</pre>
+      <pre aria-label="Launch output">
+        {state.log ? renderANSILog(state.log) : "Client and dependency output will appear here."}
+      </pre>
     </details>
   </div>;
 }

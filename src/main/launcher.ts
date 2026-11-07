@@ -39,6 +39,7 @@ export function registerLauncher(getWindow: () => BrowserWindow): void {
     if (window && !window.isDestroyed()) window.webContents.send("launcher:state", state);
   };
   const log = (data: Buffer) => update({ log: (state.log + data.toString()).slice(-80000) });
+  const logError = (data: Buffer) => update({ log: (state.log + '\x1b[31m' + data.toString() + '\x1b[0m').slice(-80000) });
   ipcMain.handle("launcher:versions", versions);
   ipcMain.handle("launcher:state", () => state);
   ipcMain.handle("launcher:launch", async (_event, options: LaunchOptions) => {
@@ -75,7 +76,7 @@ export function registerLauncher(getWindow: () => BrowserWindow): void {
         const invocation = mavenInvocation(mavenPath, args);
         child = spawn(invocation.command, invocation.args, { windowsHide: true, env, windowsVerbatimArguments: invocation.windowsVerbatimArguments });
         child.stdout?.on("data", log);
-        child.stderr?.on("data", log);
+        child.stderr?.on("data", logError);
         child.once("error", reject);
         child.once("close", code => code === 0 ? resolve() : reject(new Error(`Maven exited with code ${code}. Check the log and your Maven installation.`)));
       });
@@ -84,7 +85,7 @@ export function registerLauncher(getWindow: () => BrowserWindow): void {
       const javaArgs = [`-Xmx${options.memory}M`, ...(process.platform === "darwin" ? ["-XstartOnFirstThread"] : []), "-cp", classpath, "net.fabricmc.loader.impl.launch.knot.KnotClient"];
       child = spawn(runtime.executable, javaArgs, { cwd: gameDirectory, windowsHide: true, env });
       child.stdout?.on("data", log);
-      child.stderr?.on("data", log);
+      child.stderr?.on("data", logError);
       child.once("spawn", () => update({ phase: "running", message: `Playing ${options.version}` }));
       child.once("error", error => update({ phase: "error", message: `Could not start Java: ${error.message}` }));
       child.once("close", code => {
