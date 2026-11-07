@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "description": "A minimal custom-title-bar Electron web browser starter.",
   "main": "./out/main/index.js",
-  "author": "",
+  "author": "Omnixerio Studios",
   "scripts": {
     "dev": "electron-vite dev",
     "build": "electron-vite build",
