@@ -62,7 +62,7 @@
     },
     "win": {
       "target": [
-        "nsis", "msi", "appx"
+        "nsis", "msi"
       ],
       "icon": "icons/icon.ico"
     },
