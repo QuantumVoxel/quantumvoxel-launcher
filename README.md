@@ -5,6 +5,8 @@ Electron launcher for `net.quantumvoxel:client`, with version discovery from:
 - https://maven.ultreon.dev/releases
 - https://maven.ultreon.dev/snapshots
 
+![macOS screenshot](img/mac.png)
+
 ## Run
 
 Install Node.js. Java and Apache Maven are downloaded and managed automatically when needed.
