@@ -51,7 +51,7 @@
     },
     "linux": {
       "target": [
-        "AppImage", "deb", "rpm"
+        "AppImage", "deb", "rpm", "pacman"
       ],
       "category": "Network",
       "icon": "icons/icon.png",
@@ -61,8 +61,11 @@
       "vendor": "Omnixerio Studios"
     },
     "win": {
-      "target": "nsis",
-      "icon": "icons/icon.ico"
+      "target": [
+        "nsis", "msi", "appx"
+      ],
+      "icon": "icons/icon.ico",
+      "author": "Omnixerio Studios"
     },
     "mac": {
       "target": "dmg",
