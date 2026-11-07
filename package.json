@@ -51,7 +51,7 @@
     },
     "linux": {
       "target": [
-        "AppImage", "deb", "rpm", "pacman"
+        "AppImage", "deb", "rpm"
       ],
       "category": "Network",
       "icon": "icons/icon.png",
