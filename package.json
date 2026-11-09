@@ -1,6 +1,6 @@
 {
   "name": "quantumvoxel-launcher",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A minimal custom-title-bar Electron web browser starter.",
   "main": "./out/main/index.js",
   "author": "Omnixerio Studios",
@@ -52,7 +52,7 @@
     },
     "linux": {
       "target": [
-        "AppImage", "deb", "rpm"
+        "AppImage", "deb", "rpm", "zip"
       ],
       "category": "Network",
       "icon": "icons/icon.png",
@@ -63,12 +63,12 @@
     },
     "win": {
       "target": [
-        "nsis", "msi"
+        "nsis", "msi", "zip"
       ],
       "icon": "icons/icon.ico"
     },
     "mac": {
-      "target": "dmg",
+      "target": ["dmg", "zip"],
       "category": "public.app-category.games",
       "identity": null,
       "icon": "icons/icon.icns"
