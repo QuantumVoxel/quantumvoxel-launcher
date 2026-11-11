@@ -71,15 +71,10 @@ async function findJava(directory: string): Promise<string | undefined> {
   }
 }
 
-export async function ensureJava(required: number, preferred: string, dataDirectory: string, report: (message: string) => void) {
-  const installed = await inspectJava(preferred || "java");
-  if (installed && installed.major >= required) {
-    report(`Using Java ${installed.major} (module requires Java ${required}): ${installed.executable}`);
-    return installed;
-  }
+export async function ensureJava(required: number, _preferred: string, dataDirectory: string, report: (message: string) => void) {
   const os = { win32: "windows", darwin: "mac", linux: "linux" }[process.platform as "win32" | "darwin" | "linux"];
   const arch = { x64: "x64", arm64: "aarch64", ia32: "x86", arm: "arm" }[process.arch as "x64" | "arm64" | "ia32" | "arm"];
-  if (!os || !arch) throw new Error(`Automatic Temurin installation is unavailable on ${process.platform}/${process.arch}. Configure a Java ${required}+ executable.`);
+  if (!os || !arch) throw new Error(`Automatic Temurin installation is unavailable on ${process.platform}/${process.arch}.`);
   const root = resolve(dataDirectory, "runtimes");
   const target = join(root, `temurin-${required}-${os}-${arch}`);
   await mkdir(target, { recursive: true });

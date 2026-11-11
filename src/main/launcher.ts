@@ -46,14 +46,12 @@ export function registerLauncher(getWindow: () => BrowserWindow): void {
     if (state.phase === "resolving" || state.phase === "running") throw new Error("A launch is already active.");
     if (!options || !available.some(v => v.version === options.version && v.channel === options.channel)) throw new Error("Refresh and select an available version.");
     if (!Number.isInteger(options.memory) || options.memory < 512 || options.memory > 32768) throw new Error("Memory must be between 512 and 32768 MiB.");
-    for (const path of [options.javaPath || "java", options.mavenPath || "mvn"]) {
-      if (typeof path !== "string" || !path.trim() || /["\r\n&|<>^%!]/.test(path)) throw new Error("Enter a valid executable path without shell special characters.");
-    }
+    if (typeof options.mavenPath === "string" && options.mavenPath.trim() && /["\r\n&|<>^%!]/.test(options.mavenPath)) throw new Error("Enter a valid executable path without shell special characters.");
     update({ phase: "resolving", message: "Resolving client and runtime dependencies…", log: "" });
     try {
       update({ message: "Checking Java requirement in module metadata…" });
       const major = await requiredJava(options.channel, options.version);
-      const runtime = await ensureJava(major, options.javaPath, app.getPath("userData"), message => {
+      const runtime = await ensureJava(major, "", app.getPath("userData"), message => {
         update({ message });
         log(Buffer.from(`${message}\n`));
       });

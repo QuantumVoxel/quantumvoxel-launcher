@@ -24,7 +24,7 @@ export function App() {
   const [warnings, setWarnings] = useState<string[]>([]);
   const [error, setError] = useState("");
   const [state, setState] = useState<LaunchState>({phase: "idle", message: "Ready to play", log: ""});
-  const [javaPath, setJavaPath] = useState(() => localStorage.getItem("launcher.java") || "java");
+  const [_javaPath] = useState(() => localStorage.getItem("launcher.java") || "");
   const [mavenPath, setMavenPath] = useState(() => localStorage.getItem("launcher.maven") || "");
   const [memory, setMemory] = useState(() => Number(localStorage.getItem("launcher.memory")) || 4096);
   const [maximized, setMaximized] = useState(false);
@@ -67,11 +67,10 @@ export function App() {
     if (!version) return;
     setError("");
     setState({phase: "resolving", message: "Preparing launch…", log: ""});
-    localStorage.setItem("launcher.java", javaPath);
     localStorage.setItem("launcher.maven", mavenPath);
     localStorage.setItem("launcher.memory", String(memory));
     try {
-      await window.electronAPI.launchClient({...version, javaPath, mavenPath, memory});
+      await window.electronAPI.launchClient({...version, javaPath: "", mavenPath, memory});
     } catch (reason) {
       setError(String(reason));
       setState(previous => ({...previous, phase: "error", message: "Launch failed"}));
@@ -112,17 +111,14 @@ export function App() {
         </label>
         <p className="repository">maven.ultreon.dev/{channel}</p>
         {selectedVersion && <p
-          className="runtime-help">{selectedVersion.javaVersion ? `Requires Java ${selectedVersion.javaVersion} · Temurin installs automatically if needed.` : "Java requirement unavailable. Launch will retry module metadata."}</p>}
+          className="runtime-help">{selectedVersion.javaVersion ? `Requires Java ${selectedVersion.javaVersion} · Eclipse Temurin is downloaded automatically.` : "Java requirement unavailable. Launch will retry module metadata."}</p>}
         {channel === "snapshots" &&
           <p className="snapshot-note">Development builds may contain game breaking bugs.</p>}
         <details>
           <summary>Runtime settings</summary>
-          <p className="runtime-help">Java requirements come from the selected version. A compatible runtime is detected
-            or Eclipse Temurin is downloaded automatically. Apache Maven is downloaded automatically and checked for
-            updates at launch.</p><label className="field">Preferred Java executable (optional)<input disabled={busy}
-                                                                                                      value={javaPath}
-                                                                                                      onChange={e => setJavaPath(e.target.value)}
-                                                                                                      placeholder="Automatic"/></label><label
+          <p className="runtime-help">Java requirements come from the selected version. Eclipse Temurin is downloaded
+            automatically for the required Java version. Apache Maven is downloaded automatically and checked for
+            updates at launch.</p><label
           className="field">Maven executable override (optional)<input disabled={busy} value={mavenPath}
                                                                        onChange={e => setMavenPath(e.target.value)}
                                                                        placeholder="Automatic (latest stable Maven 3)"/></label><label
