@@ -6,7 +6,9 @@ contextBridge.exposeInMainWorld("electronAPI", {
   },
   getClientVersions: () => ipcRenderer.invoke("launcher:versions"),
   getLaunchState: () => ipcRenderer.invoke("launcher:state"),
+  forceQuitClient: () => ipcRenderer.invoke("launcher:force-quit"),
   launchClient: (options: import("../shared/launcher").LaunchOptions) => ipcRenderer.invoke("launcher:launch", options),
+  exportServer: (options: import("../shared/launcher").ServerExportOptions) => ipcRenderer.invoke("launcher:export-server", options),
   onLaunchState: (callback: (state: import("../shared/launcher").LaunchState) => void) => {
     const listener = (_event: Electron.IpcRendererEvent, state: import("../shared/launcher").LaunchState) => callback(state);
     ipcRenderer.on("launcher:state", listener);

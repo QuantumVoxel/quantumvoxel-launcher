@@ -1,5 +1,5 @@
 import {useEffect, useState, useMemo} from "react";
-import {FaCube, FaPlay, FaSyncAlt} from "react-icons/fa";
+import {FaCube, FaDownload, FaPlay, FaStop, FaSyncAlt} from "react-icons/fa";
 import {TitleBar} from "./components/TitleBar";
 import {Combobox} from "./components/Combobox";
 import type {ClientVersion, LaunchState} from "../../shared/launcher";
@@ -28,7 +28,9 @@ export function App() {
   const [mavenPath, setMavenPath] = useState(() => localStorage.getItem("launcher.maven") || "");
   const [memory, setMemory] = useState(() => Number(localStorage.getItem("launcher.memory")) || 4096);
   const [maximized, setMaximized] = useState(false);
-  const busy = state.phase === "resolving" || state.phase === "running";
+  const [exporting, setExporting] = useState(false);
+  const busy = exporting || state.phase === "resolving" || state.phase === "running";
+  const gameRunning = !exporting && (state.pid !== undefined || state.phase === "running" || state.phase === "resolving");
   const filtered = versions.filter(version => version.channel === channel);
   const selectedVersion = versions.find(v => v.version === selected);
 
@@ -74,6 +76,33 @@ export function App() {
     } catch (reason) {
       setError(String(reason));
       setState(previous => ({...previous, phase: "error", message: "Launch failed"}));
+    }
+  }
+
+  async function forceQuit() {
+    setError("");
+    try {
+      await window.electronAPI.forceQuitClient();
+    } catch (reason) {
+      setError(String(reason));
+    }
+  }
+
+  async function exportServer() {
+    const version = versions.find(v => v.version === selected);
+    if (!version) return;
+    setError("");
+    setExporting(true);
+    localStorage.setItem("launcher.maven", mavenPath);
+    localStorage.setItem("launcher.memory", String(memory));
+    try {
+      const destination = await window.electronAPI.exportServer({...version, mavenPath, memory});
+      if (destination) setState(previous => ({...previous, phase: "idle", message: `Server launcher exported to ${destination}`}));
+    } catch (reason) {
+      setError(String(reason));
+      setState(previous => ({...previous, phase: "error", message: "Server export failed"}));
+    } finally {
+      setExporting(false);
     }
   }
 
@@ -126,8 +155,13 @@ export function App() {
                                                        value={memory}
                                                        onChange={e => setMemory(Number(e.target.value))}/></label>
         </details>
-        <button className="play-button" disabled={busy || loading || !selected} onClick={launch}>
-          <FaPlay/>{state.phase === "resolving" ? "Preparing client…" : state.phase === "running" ? "Client running" : "Launch client"}
+        <button className={`play-button${gameRunning ? " force-quit" : ""}`} disabled={!exporting && !gameRunning && (busy || loading || !selected)} onClick={gameRunning ? forceQuit : launch}>
+          {gameRunning
+            ? <><FaStop/>{state.pid ? `Force quit game (pid ${state.pid})` : "Force quit game"}</>
+            : <><FaPlay/>{state.phase === "resolving" ? exporting ? "Exporting server…" : "Preparing client…" : "Launch client"}</>}
+        </button>
+        <button className="export-button" disabled={exporting} onClick={exportServer}>
+          <FaDownload/>{exporting ? "Exporting server launcher…" : "Export server launcher"}
         </button>
         <p className={`launch-status ${state.phase}`} role="status">{state.message}</p>
         {error && <p className="launch-error" role="alert">{error}</p>}

@@ -2,7 +2,9 @@ export interface ElectronAPI {
   readonly platform: string;
   getClientVersions(): Promise<import("../shared/launcher").VersionResult>;
   getLaunchState(): Promise<import("../shared/launcher").LaunchState>;
+  forceQuitClient(): Promise<boolean>;
   launchClient(options: import("../shared/launcher").LaunchOptions): Promise<import("../shared/launcher").LaunchState>;
+  exportServer(options: import("../shared/launcher").ServerExportOptions): Promise<string | undefined>;
   onLaunchState(callback: (state: import("../shared/launcher").LaunchState) => void): () => void;
   minimize(): void;
   maximize(): Promise<boolean>;

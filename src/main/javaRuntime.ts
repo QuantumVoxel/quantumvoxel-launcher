@@ -26,8 +26,8 @@ async function fetchText(url: string): Promise<string> {
   return response.text();
 }
 
-export async function requiredJava(channel: keyof typeof repositories, version: string): Promise<number> {
-  const base = `${repositories[channel]}/net/quantumvoxel/client/${version}`;
+export async function requiredJavaArtifact(channel: keyof typeof repositories, artifact: "client" | "server", version: string): Promise<number> {
+  const base = `${repositories[channel]}/net/quantumvoxel/${artifact}/${version}`;
   let publishedVersion = version;
   if (version.endsWith("-SNAPSHOT")) {
     const xml = await fetchText(`${base}/maven-metadata.xml`);
@@ -39,7 +39,11 @@ export async function requiredJava(channel: keyof typeof repositories, version: 
     publishedVersion = value || (timestamp && build ? version.replace(/SNAPSHOT$/, `${timestamp}-${build}`) : version);
     if (!/^[a-zA-Z0-9][a-zA-Z0-9._+-]*$/.test(publishedVersion)) throw new Error("Invalid snapshot module version.");
   }
-  return javaRequirement(JSON.parse(await fetchText(`${base}/client-${publishedVersion}.module`)));
+  return javaRequirement(JSON.parse(await fetchText(`${base}/${artifact}-${publishedVersion}.module`)));
+}
+
+export async function requiredJava(channel: keyof typeof repositories, version: string): Promise<number> {
+  return requiredJavaArtifact(channel, "client", version);
 }
 
 export function parseJavaVersion(output: string): number | undefined {

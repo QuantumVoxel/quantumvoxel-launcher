@@ -18,6 +18,8 @@ npm run dev
 
 Select Releases or Snapshots, choose a version, and click **Launch client**. A missing repository is reported independently so the other repository remains usable. Refresh checks Maven metadata again. Runtime settings are saved locally.
 
+Use **Export server launcher** to create a portable server folder for the selected version. It includes the server and runtime libraries, Windows and Unix launch scripts, and a note with the required Java version. The folder also contains `user_vmargs.txt`, prefilled with the selected heap plus any other JVM arguments (custom memory settings), and `user_args.txt`, where you can add program arguments such as `nogui`. Run `run-server.bat` on Windows or `sh run-server.sh` on Linux/macOS; those systems need a compatible Java runtime available on `PATH`.
+
 Maven resolves the client and its transitive runtime dependencies, including native JARs, through the Ultreon repositories, Maven Central, Fabric, and JitPack. Snapshot dependencies are refreshed on launch. Java runs `net.quantumvoxel.client.Main` with the resolved classpath and selected maximum heap. The launch log shows Maven and client output, including resolution or Java compatibility errors.
 
 Client POMs and classpath files are stored under the Electron user-data directory in `clients/<repository>/<version>`. Game files use its `game` directory. Maven maintains its normal local dependency cache. A running client continues independently if the launcher is closed.

@@ -32,6 +32,12 @@ test('resolves timestamped snapshot module metadata', async () => {
   assert.equal(await api.requiredJava('snapshots', '1.0-SNAPSHOT'), 25);
   assert(urls[1].endsWith('/1.0-SNAPSHOT/client-1.0-20261106.123456-3.module'));
 });
+test('reads the Java requirement from the matching server artifact metadata', async () => {
+  const urls = [];
+  const api = load(async url => { urls.push(url); return { ok: true, text: async () => JSON.stringify({ variants: [variant('java-runtime', 25)] }) }; });
+  assert.equal(await api.requiredJavaArtifact('releases', 'server', '1.0'), 25);
+  assert(urls[0].endsWith('/server/1.0/server-1.0.module'));
+});
 test('uses a compatible system Java without downloading or installing', async () => {
   const api = load(() => { throw Error('Unexpected download'); }, async () => ({ stdout: '', stderr: 'java.version = 25.0.4\njava.home = C:/existing-jdk\n' }));
   const runtime = await api.ensureJava(25, 'java', 'unused', () => {});

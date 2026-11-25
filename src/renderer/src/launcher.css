@@ -264,11 +264,41 @@
   color: #000f;
 }
 
+.export-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  margin-top: 10px;
+  border: 1px solid #fff3;
+  border-radius: 9px;
+  background: #0002;
+  color: #fff9;
+  font-weight: 650 !important;
+}
+
+.export-button:hover:enabled {
+  background: #fff2;
+  color: #fff;
+}
+
+.play-button.force-quit {
+  border-color: #fc6555a0;
+}
+
+.play-button.force-quit:hover:enabled {
+  background: #fc6555;
+  color: #fff;
+}
+
 .launch-status {
   text-align: center;
   font-size: 12px;
   color: #fff8;
   line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .launch-status.error, .launch-error {
